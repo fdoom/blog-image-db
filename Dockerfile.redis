@@ -1,0 +1,8 @@
+FROM redis:7.4
+
+COPY ./redis/config/redis.conf /usr/local/etc/redis/redis.conf
+
+COPY ./ssl /etc/redis/ssl
+
+# Start Redis with your configuration
+CMD ["redis-server", "/usr/local/etc/redis/redis.conf"]

@@ -9,13 +9,26 @@ services:
       - "8888:8080"
     depends_on:
       - db
+      - redis
+
   db:
-    build: ./db
+    build:
+      dockerfile: Dockerfile.mysql
     ports:
       - 3306:3306
     volumes:
       - ./db/data:/var/lib/mysql
-      - ./db/ssl:/etc/mysql/ssl
+    env_file: .env
+    environment:
+      TZ: Asia/Seoul
+
+  redis:
+    build: 
+      dockerfile: Dockerfile.redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redis/data:/data
     env_file: .env
     environment:
       TZ: Asia/Seoul
